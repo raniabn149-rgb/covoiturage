@@ -12,12 +12,12 @@ $stmt = prepare_query($conn, $query_trips, "i", [$user_id]);
 $stmt->execute();
 $trips_result = $stmt->fetch();
 
-$query_bookings = "SELECT COUNT(*) as count FROM bookings WHERE user_id = ? AND status = 'confirmed'";
+$query_bookings = "SELECT COUNT(b.id) as count FROM bookings b JOIN trips t ON b.trip_id = t.id WHERE t.user_id = ? AND b.status = 'confirmed'";
 $stmt = prepare_query($conn, $query_bookings, "i", [$user_id]);
 $stmt->execute();
 $bookings_result = $stmt->fetch();
 
-$query_earnings = "SELECT SUM(t.price) as total FROM trips t WHERE t.user_id = ? AND t.status = 'completed'";
+$query_earnings = "SELECT SUM(b.seats_booked * t.price) as total FROM bookings b JOIN trips t ON b.trip_id = t.id WHERE t.user_id = ? AND b.status = 'confirmed'";
 $stmt = prepare_query($conn, $query_earnings, "i", [$user_id]);
 $stmt->execute();
 $earnings_result = $stmt->fetch();

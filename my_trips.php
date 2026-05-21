@@ -32,6 +32,25 @@ $query = "SELECT t.*, COUNT(b.id) as confirmed_bookings
 $stmt = prepare_query($conn, $query, "i", [$user_id]);
 $stmt->execute();
 $result = $stmt->fetchAll();
+
+$bookings_by_trip = [];
+if (!empty($result)) {
+    $trip_ids = array_column($result, 'id');
+    $placeholders = implode(',', array_fill(0, count($trip_ids), '?'));
+    $query = "SELECT b.trip_id, b.seats_booked, b.created_at, u.name, u.email, u.phone
+              FROM bookings b
+              JOIN users u ON b.user_id = u.id
+              WHERE b.trip_id IN ($placeholders) AND b.status = 'confirmed'
+              ORDER BY b.created_at DESC";
+    $types = str_repeat('i', count($trip_ids));
+    $stmt = prepare_query($conn, $query, $types, $trip_ids);
+    $stmt->execute();
+    $bookings = $stmt->fetchAll();
+
+    foreach ($bookings as $booking) {
+        $bookings_by_trip[$booking['trip_id']][] = $booking;
+    }
+}
 ?>
 
 <div class="container">
@@ -92,6 +111,24 @@ $result = $stmt->fetchAll();
                                 <?php endif; ?>
                             </td>
                         </tr>
+                        <?php if (!empty($bookings_by_trip[$trip['id']])): ?>
+                            <tr class="table-active">
+                                <td colspan="8" class="small text-muted">
+                                    <strong>Passagers réservés :</strong>
+                                    <ul class="mb-0 ps-3">
+                                        <?php foreach ($bookings_by_trip[$trip['id']] as $booking): ?>
+                                            <li>
+                                                <?php echo sanitize($booking['name']); ?>
+                                                (<?php echo sanitize($booking['email']); ?>) a réservé <?php echo intval($booking['seats_booked']); ?> place(s)
+                                                <?php if (!empty($booking['phone'])): ?>
+                                                    - Tél: <?php echo sanitize($booking['phone']); ?>
+                                                <?php endif; ?>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </td>
+                            </tr>
+                        <?php endif; ?>
                     <?php endforeach; ?>
                 </tbody>
             </table>

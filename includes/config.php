@@ -14,9 +14,9 @@ define('DB_NAME', 'carpooling_db');
 try {
     $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8mb4';
     $conn = new PDO($dsn, DB_USER, DB_PASS, [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::ATTR_EMULATE_PREPARES => false,
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, // lance des exceptions en cas d'erreur
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, // retourne des tableaux associatifs
+        PDO::ATTR_EMULATE_PREPARES => false, // vraies requêtes préparées (sécurité)
     ]);
 } catch (PDOException $e) {
     die("Erreur de base de données : " . $e->getMessage());
@@ -47,11 +47,13 @@ function verify_password($password, $hash) {
 
 // Fonction pour préparer les requêtes SQL (prévention SQL Injection)
 function prepare_query($conn, $query, $types = '', $params = []) {
-    $stmt = $conn->prepare($query);
+    $stmt = $conn->prepare($query); //méthode PDO qui prépare la requête SQL
+
     if (!$stmt) {
         $errorInfo = $conn->errorInfo();
         die("Erreur de préparation : " . ($errorInfo[2] ?? 'Erreur PDO inconnue'));
-    }
+    } //die :arrête tout le script et affiche le message
+
 
     if (!empty($types) && !empty($params)) {
         for ($i = 0; $i < strlen($types); $i++) {
