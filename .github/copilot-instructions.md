@@ -1,0 +1,8 @@
+- [x] Vérifier que le fichier `copilot-instructions.md` existe dans `.github`.
+- [x] Clarifier les exigences du projet.
+- [x] Créer la structure de fichiers et dossiers.
+- [x] Configurer la base de données avec `db/database.sql`.
+- [x] Ajouter les pages PHP principales.
+- [x] Ajouter le CSS responsive et les ressources JS.
+- [x] Documenter le projet avec un README.
+- [ ] Tester le projet dans un environnement local.
