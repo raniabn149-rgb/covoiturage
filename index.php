@@ -114,7 +114,7 @@ require_once 'includes/header.php';
                                 <i class="fas fa-arrow-right"></i> 
                                 <?php echo sanitize($trip['destination']); ?>
                             </div>
-                            <div class="trip-price"><?php echo number_format($trip['price'], 2, ',', ' '); ?> €</div>
+                            <div class="trip-price"><?php echo number_format($trip['price'], 2, ',', ' '); ?> DT</div>
                         </div>
                         <div class="trip-details">
                             <div class="trip-detail">
@@ -189,7 +189,7 @@ require_once 'includes/header.php';
                 <p><strong>Conducteur:</strong> <span id="modal-driver"></span></p>
                 <p><strong>Date / Heure:</strong> <span id="modal-datetime"></span></p>
                 <p><strong>Places disponibles:</strong> <span id="modal-seats"></span></p>
-                <p><strong>Prix:</strong> <span id="modal-price"></span> €</p>
+                <p><strong>Prix:</strong> <span id="modal-price"></span> DT</p>
                 <hr>
                 <p id="modal-description"></p>
             </div>

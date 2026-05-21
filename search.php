@@ -151,7 +151,7 @@ require_once 'includes/header.php';
                             <i class="fas fa-arrow-right"></i>
                             <strong><?php echo sanitize($trip['destination']); ?></strong>
                         </div>
-                        <div class="trip-price"><?php echo number_format($trip['price'], 2, ',', ' '); ?> €</div>
+                        <div class="trip-price"><?php echo number_format($trip['price'], 2, ',', ' '); ?> DT</div>
                     </div>
 
                     <div class="trip-details">

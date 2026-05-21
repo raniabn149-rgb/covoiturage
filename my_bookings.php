@@ -72,7 +72,7 @@ $result = $stmt->fetchAll();
                             </td>
                             <td><?php echo date('d/m/Y H:i', strtotime($booking['date'] . ' ' . $booking['time'])); ?></td>
                             <td><?php echo $booking['seats_booked']; ?></td>
-                            <td><?php echo number_format($booking['price'], 2, ',', ' '); ?> €</td>
+                            <td><?php echo number_format($booking['price'], 2, ',', ' '); ?> DT</td>
                             <td>
                                 <?php if ($booking['status'] === 'confirmed'): ?>
                                     <span class="badge bg-success">Confirmée</span>
