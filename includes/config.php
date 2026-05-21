@@ -27,7 +27,7 @@ define('SESSION_LIFETIME', 3600); // 1 heure
 
 // Fonction pour nettoyer les entrées (prévention XSS)
 function sanitize($input) {
-    return htmlspecialchars(trim($input), ENT_QUOTES, 'UTF-8');
+    return htmlspecialchars(trim($input), ENT_QUOTES, 'UTF-8'); //trim tnahi les espaces
 }
 
 // Fonction pour valider une adresse email
