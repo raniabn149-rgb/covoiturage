@@ -31,7 +31,6 @@ require_once 'includes/header.php';
 ?>
 
 <div class="container">
-    <!-- Jumbotron -->
     <div class="jumbotron-custom">
         <h1><i class="fas fa-globe"></i> Bienvenue sur CovoitPlus</h1>
         <p class="lead">Trouvez des trajets, économisez, et rencontrez de nouvelles personnes</p>
